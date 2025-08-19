@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio de Conexiones - Causas Origen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .instrucciones {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .ejercicio {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .columna {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+        
+        .columna h3 {
+            text-align: center;
+            margin-top: 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .causas h3 {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .ejemplos h3 {
+            background: #ff9800;
+            color: white;
+        }
+        
+        .item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .causa {
+            border-left: 4px solid #4caf50;
+        }
+        
+        .ejemplo {
+            border-left: 4px solid #ff9800;
+        }
+        
+        .item.seleccionado {
+            border: 2px solid #2196f3;
+            background: #e3f2fd;
+        }
+        
+        .item.correcto {
+            border: 2px solid #4caf50;
+            background: #e8f5e8;
+        }
+        
+        .item.usado {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .numero {
+            display: inline-block;
+            background: #666;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .botones {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        button {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            margin: 0 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #1976d2;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .resultado {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .puntuacion {
+            background: #e8f5e8;
+            color: #2e7d32;
+            border: 2px solid #4caf50;
+        }
+        
+        @media (max-width: 768px) {
+            .ejercicio {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1> Ejercicio de Conexiones: Causas Origen y Ejemplos</h1>
+        
+        <div class="instrucciones">
+            <strong>Instrucciones:</strong> Conecta cada causa origen con su ejemplo correspondiente. Haz clic en una causa y luego en el ejemplo que consideres correcto. Si la conexión es correcta, ambos elementos se marcarán en verde.
+        </div>
+        
+        <div class="ejercicio">
+            <div class="columna causas">
+                <h3>CAUSAS ORIGEN</h3>
+                <div class="item causa" data-id="1">
+                    <span class="numero">1</span>
+                    <strong>Demanda del Mercado</strong>
+                </div>
+                <div class="item causa" data-id="2">
+                    <span class="numero">2</span>
+                    <strong>Petición del Cliente</strong>
+                </div>
+                <div class="item causa" data-id="3">
+                    <span class="numero">3</span>
+                    <strong>Necesidad de Negocio</strong>
+                </div>
+                <div class="item causa" data-id="4">
+                    <span class="numero">4</span>
+                    <strong>Requerimientos Legales</strong>
+                </div>
+                <div class="item causa" data-id="5">
+                    <span class="numero">5</span>
+                    <strong>Avances Tecnológicos</strong>
+                </div>
+            </div>
+            
+            <div class="columna ejemplos">
+                <h3>EJEMPLOS</h3>
+                <div class="item ejemplo" data-match="4">
+                    <strong>A)</strong> Una fábrica de pintura autoriza un proyecto para establecer una serie de guías para el manejo de materiales tóxicos.
+                </div>
+                <div class="item ejemplo" data-match="1">
+                    <strong>B)</strong> La compañía de electricidad autoriza el proyecto para construir una nueva subestación con el fin de cubrir la demanda de energía en cierta zona.
+                </div>
+                <div class="item ejemplo" data-match="5">
+                    <strong>C)</strong> Después de la introducción de la Internet, una compañía de electrónica autoriza un nuevo proyecto para el desarrollo de un aparato de videojuegos.
+                </div>
+                <div class="item ejemplo" data-match="2">
+                    <strong>D)</strong> Una empresa de desarrollo de software autoriza el diseño de un nuevo sistema de información, a solicitud de uno de sus clientes.
+                </div>
+                <div class="item ejemplo" data-match="3">
+                    <strong>E)</strong> Una compañía de capacitación autoriza el proyecto para la elaboración de un nuevo curso con el fin de incrementar sus utilidades.
+                </div>
+            </div>
+        </div>
+        
+        <div class="botones">
+            <button onclick="verificarRespuestas()">Verificar Respuestas</button>
+        </div>
+        
+        <div id="resultado" class="resultado" style="display: none;"></div>
+    </div>
+
+    <script>
+        let causaSeleccionada = null;
+        let conexionesCorrectas = 0;
+        let intentos = 0;
+        
+        // Respuestas correctas
+        const respuestasCorrectas = {
+            1: 'B', // Demanda del Mercado
+            2: 'D', // Petición del Cliente  
+            3: 'E', // Necesidad de Negocio
+            4: 'A', // Requerimientos Legales
+            5: 'C'  // Avances Tecnológicos
+        };
+        
+        // Event listeners para las causas
+        document.querySelectorAll('.causa').forEach(causa => {
+            causa.addEventListener('click', function() {
+                // Solo permitir selección si no ha sido usada
+                if (!this.classList.contains('usado')) {
+                    // Remover selección anterior
+                    document.querySelectorAll('.causa').forEach(c => c.classList.remove('seleccionado'));
+                    // Seleccionar nueva causa
+                    this.classList.add('seleccionado');
+                    causaSeleccionada = this.dataset.id;
+                }
+            });
+        });
+        
+        // Event listeners para los ejemplos
+        document.querySelectorAll('.ejemplo').forEach(ejemplo => {
+            ejemplo.addEventListener('click', function() {
+                if (causaSeleccionada && !this.classList.contains('usado')) {
+                    const ejemploLetra = this.querySelector('strong').textContent.replace(')', '');
+                    const causaId = parseInt(causaSeleccionada);
+                    const causaElement = document.querySelector(`[data-id="${causaId}"]`);
+                    
+                    // Verificar si la causa ya fue usada
+                    if (causaElement.classList.contains('usado')) {
+                        return;
+                    }
+                    
+                    // Verificar si la conexión es correcta
+                    if (respuestasCorrectas[causaId] === ejemploLetra) {
+                        // Conexión correcta
+                        causaElement.classList.add('correcto');
+                        this.classList.add('correcto');
+                        conexionesCorrectas++;
+                    } else {
+                        // Conexión incorrecta
+                        causaElement.classList.add('incorrecto');
+                        this.classList.add('incorrecto');
+                    }
+                    
+                    // Marcar ambos elementos como usados
+                    causaElement.classList.add('usado');
+                    this.classList.add('usado');
+                    
+                    // Deshabilitar clicks futuros
+                    causaElement.style.pointerEvents = 'none';
+                    this.style.pointerEvents = 'none';
+                    
+                    // Limpiar selección
+                    document.querySelectorAll('.causa').forEach(c => c.classList.remove('seleccionado'));
+                    causaSeleccionada = null;
+                    intentos++;
+                }
+            });
+        });
+        
+        function verificarRespuestas() {
+            const resultado = document.getElementById('resultado');
+            const porcentaje = (conexionesCorrectas / 5) * 100;
+            
+            resultado.innerHTML = `
+                <div class="puntuacion">
+                     Conexiones correctas: ${conexionesCorrectas}/5<br>
+                     Puntuación: ${porcentaje}%<br>
+                     Intentos realizados: ${intentos}
+                </div>
+            `;
+            resultado.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
